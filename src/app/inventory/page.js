@@ -37,7 +37,7 @@ export default function InventoryPage() {
   const fetchItems = async () => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5000/api/items');
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/items`);
       if (!response.ok) throw new Error('Failed to fetch items');
       const data = await response.json();
       setItems(data);
@@ -97,8 +97,8 @@ export default function InventoryPage() {
     e.preventDefault();
     try {
       const url = editingItem 
-        ? `http://localhost:5000/api/items/${editingItem._id}` 
-        : 'http://localhost:5000/api/items';
+        ? `${process.env.NEXT_PUBLIC_API_URL}/items/${editingItem._id}` 
+        : `${process.env.NEXT_PUBLIC_API_URL}/items`;
       
       const method = editingItem ? 'PUT' : 'POST';
       
@@ -120,7 +120,7 @@ export default function InventoryPage() {
   const handleDelete = async (id) => {
     if (!confirm('Are you sure you want to delete this item?')) return;
     try {
-      const response = await fetch(`http://localhost:5000/api/items/${id}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/items/${id}`, {
         method: 'DELETE'
       });
       if (!response.ok) throw new Error('Failed to delete item');

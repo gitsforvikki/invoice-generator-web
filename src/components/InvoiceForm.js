@@ -31,7 +31,7 @@ export default function InvoiceForm() {
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const res = await axios.get('http://localhost:5000/api/items');
+        const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/items`);
         if (res.data && res.data.length > 0) {
           setAvailableItems(res.data);
         }
@@ -146,7 +146,7 @@ export default function InvoiceForm() {
         gstPercentage
       };
       
-      const res = await axios.post('http://localhost:5000/api/invoices', payload);
+      const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/invoices`, payload);
       setSuccessMsg(`Invoice ${res.data.invoiceNumber} created successfully!`);
       setSavedInvoiceData(res.data);
       // Reset form
